@@ -106,8 +106,51 @@ let addressBookArray = new Array();
 try{
 	addressBookArray.push(new Contact("Priya", "Pai", "Porbandar", "Indiana", 263788, 937892178, "priyap@gmail.com"));
     addressBookArray.push(new Contact("Mahi", "walli", "Mecca", "Miriam", 893478, 7782967365, "mm16hmp@gmail.com"));
-	console.log(contact.toString());
+	//console.log(contact.toString());
 }
 catch(e){
 	console.log(e);
 }
+
+function contactExists(name) {
+    return addressBookArray.some(contact => contact.firstName == name);
+}
+
+function printAddressBook(){
+    addressBookArray.forEach(contact => console.log(contact.toString));
+}
+
+//edit contact
+function editContact(name, property, newValue) {
+    if (contactExists(name)) {
+        switch (property) {
+            case "city":
+                addressBookArray.find((contact) => contact.firstName == name).city = newValue;
+                break;
+            case "state":
+                addressBookArray.find((contact) => contact.firstName == name).state = newValue;
+                break;
+            case "zip":
+                addressBookArray.find((contact) => contact.firstName == name).zip = newValue;
+                break;
+            case "phoneNumber":
+                addressBookArray.find((contact) => contact.firstName == name).phoneNumber = newValue;
+                break;
+            case "email":
+                addressBookArray.find((contact) => contact.firstName == name).email = newValue;
+                break;
+            default:
+                console.log("Enter a valid field to edit");
+        }
+    }
+    else {
+        console.log("Contact Does Not Exist");
+    }
+}
+
+console.log("Address Book : ");
+printAddressBook();
+
+console.log("\nAddress Book after editing Contact :");
+editContact("Priya", "city", "Boston");
+printAddressBook();
