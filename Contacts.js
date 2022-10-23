@@ -1,4 +1,4 @@
-console.log("*****Address Book System*****");
+console.log("Welcome to Address Book System!");
 
 class Contact{
 
@@ -41,7 +41,7 @@ class Contact{
     }
 
     set firstName(firstName){
-        const nameRegex = RegExp('^[A-Z][a-zA-Z]{2,}$');
+        const nameRegex = RegExp("^[A-Z][a-zA-Z]{2,}$");
         if (nameRegex.test(firstName))
             this._firstName = firstName;
         else 
@@ -49,7 +49,7 @@ class Contact{
     }
 
     set lastName(lastName){
-        const nameRegex = RegExp('^[A-Z][a-zA-Z]{2,}$');
+        const nameRegex = RegExp("^[A-Z][a-zA-Z]{2,}$");
         if (nameRegex.test(lastName))
             this._lastName = lastName;
         else 
@@ -59,7 +59,7 @@ class Contact{
     set city(city){
         const cityStateRegex = RegExp('^[a-zA-z]{3,}$');
         if (cityStateRegex.test(city))
-        this._city = city;
+            this._city = city;
         else
             throw "City input is Invalid!";   
     }
@@ -73,7 +73,7 @@ class Contact{
     }
 
     set zip(zip){
-        const zipRegex = RegExp("^[0-9]{3}\\s{0,1}[0-9]{3}$");
+        const zipRegex = RegExp("^[0-9]{3}[0-9]{3}$");
         if (zipRegex.test(zip))
         this._zip = zip;
         else
@@ -81,37 +81,46 @@ class Contact{
     }
 
     set phoneNumber(phoneNumber){
-        const phoneNumberRegex = RegExp('^[0-9]{2}\\s{1}[0-9]{10}$');
+        const phoneNumberRegex = RegExp("^[0-9]{10}$");
         if (phoneNumberRegex.test(phoneNumber))
-        this._phoneNumber = phoneNumber;
+            this._phoneNumber = phoneNumber;
         else
-            throw "Phone number input is Invalid!";    }
+            throw "Phone number input is Invalid!";    
+    }
 
     set email(email){
-        const emailRegex = "^[0-9a-zA-Z]+([_+-.a-z0-9A-Z]+)*[@][a-zA-Z]+[.][a-z]{2,4}([.][a-z]{2})?$";
+        const emailRegex = RegExp("^[0-9a-zA-Z]+([_+-.a-z0-9A-Z]+)*[@][a-zA-Z]+[.][a-z]{2,4}([.][a-z]{2})?$");
         if (emailRegex.test(email))
             this._email = email;
         else
             throw "Email input is Invalid!";
     }
 
-
     toString(){
         return "First Name : " + this.firstName + "\nLast Name : " + this.lastName + "\nCity : " + this.city + "\nState : " + this.state + "\nZip : "+ this.zip+ "\nPhone Number : " + this.phoneNumber + "\nEmail ID: " + this.email;
     }
 }
 
+//new address book
 let addressBookArray = new Array();
 
 try{
-	addressBookArray.push(new Contact("Priya", "Pai", "Porbandar", "Indiana", 263788, 937892178, "priyap@gmail.com"));
-    addressBookArray.push(new Contact("Mahi", "walli", "Mecca", "Miriam", 893478, 7782967365, "mm16hmp@gmail.com"));
-	//console.log(contact.toString());
+    addressBookArray.push(new Contact("Priya", "Pai", "Porbandar", "Indiana", 637889, 9378921781, "priyap@gmail.com"));
+   // console.log(contact.toString());
 }
 catch(e){
-	console.log(e);
+    console.log(e);
 }
 
+try{
+    addressBookArray.push(new Contact("Mahi", "Walli", "Mecca", "Miriam", 893478, 7782967365, "mm16hmp@gmail.com"));
+   // console.log(contact.toString());
+}
+catch(e){
+    console.log(e);
+}
+
+//find contact
 function contactExists(name) {
     return addressBookArray.some(contact => contact.firstName == name);
 }
@@ -155,10 +164,11 @@ console.log("\nAddress Book after editing Contact :");
 editContact("Priya", "city", "Boston");
 printAddressBook();
 
-//Delete contact
+
+// delete contact
 function deleteContact(name){
     if(contactExists(name)){
-        addressBookArray = addressBookArray.filter((contact) => contact.firstName == name);
+        addressBookArray = addressBookArray.filter((contact) => contact.firstName != name);
     }else{
         console.log("Contact Does Not Exist");
     }
@@ -172,4 +182,19 @@ printAddressBook();
 function getCount(count) {
     return count+1;
 }
+
 console.log("Number of Contacts in Address Book : " + addressBookArray.reduce(count => getCount(count), 0));
+
+//search by city
+function searchByCity(city) {
+    return addressBookArray.filter((contact) => contact.city == city);
+}
+console.log("\nSearch Contact By City");
+console.log(searchByCity("Mecca"));
+
+//search by state
+function searchByState(state) {
+    return addressBookArray.filter((contact) => contact.state == state);
+}
+console.log("\nSearch Contact By State");
+console.log(searchByState("Indiana"));
